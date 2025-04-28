@@ -1,4 +1,4 @@
-from AWSBedrockUtils import generate_embeddings
+from .AWSBedrockUtils import generate_embeddings
 
 def retrieve_rerank_context_from_opensearch(opensearch_client, opensearch_index_name: str, embed_model, rerank_model, query: str, k: int = 15, top_n: int = 5, model_id: str="cohere.rerank-v3-5:0") -> str:
     """Retrieves and reranks relevant documents from OpenSearch using vector search and semantic reranking.
