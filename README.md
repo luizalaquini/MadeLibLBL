@@ -10,7 +10,7 @@ Package for my daily use functions at Made.
 
 1)Install dependencies:
 
-```pip install hatchling wheel twine```
+```pip install hatchling wheel twine build```
 
 2)Remover builds antigos (optional):
 
