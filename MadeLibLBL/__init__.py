@@ -5,6 +5,7 @@ from .AWSS3Utils import *
 from .DataframeUtils import *
 from .DebugHelper import *
 from .FrontCharla import *
+from .FrontStreamlit import *
 from .TextManipulation import *
 
-__version__ = "2025.04.24-2"  
+__version__ = "2025.05.02"  
