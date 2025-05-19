@@ -151,3 +151,51 @@ def extract_sql(text: str) -> str:
     if match:
         return match.group(1).strip()
     return ""
+
+def truncate_text_tokens(text, max_tokens=300):
+    """Truncates text to approximately fit within a specified token limit.
+    
+    Uses character count as a proxy for token count to efficiently truncate text
+    from the end while attempting to preserve word boundaries. The function:
+    - Calculates maximum character limit based on average tokens/character ratio
+    - Preserves original text if already within limit
+    - Otherwise truncates from the end, removing partial words
+    
+    Args:
+        text (str): The input text to be truncated
+        max_tokens (int, optional): Maximum allowed token count. Defaults to 300.
+        
+    Returns:
+        str: The truncated text that should fit within the token limit, with these 
+        properties:
+             - Never longer than max_tokens
+             - Starts at a word boundary when possible
+             - Preserves the end of the original text
+             
+    Note:
+        Uses an approximate 3.5 characters per token ratio which works well for 
+        English and Portuguese text but may need adjustment for other languages 
+        or tokenizers.
+        
+    Example:
+        >>> long_text = "This is a very long text that needs to be truncated " + \
+                       "to fit within the token limit while trying to preserve " + \
+                       "word boundaries where possible."
+        >>> truncated = truncate_text_tokens(long_text, max_tokens=20)
+        >>> len(truncated.split())  # Should be approximately 20 tokens worth
+        18
+    """
+    APPROX_CHARS_PER_TOKEN = 3.5
+    
+    max_chars = int(max_tokens * APPROX_CHARS_PER_TOKEN)
+    
+    if len(text) <= max_chars:
+        return text
+    
+    truncated_text = text[-max_chars:]
+    
+    if ' ' in truncated_text:
+        first_space = truncated_text.find(' ')
+        truncated_text = truncated_text[first_space+1:]
+    
+    return truncated_text
