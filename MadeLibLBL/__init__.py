@@ -8,4 +8,4 @@ from .FrontCharla import *
 from .FrontStreamlit import *
 from .TextManipulation import *
 
-__version__ = "2025.05.02"  
+__version__ = "2025.05.19"  
